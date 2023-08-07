@@ -2,7 +2,26 @@ const express = require('express');
 const helmet = require('helmet');
 const app = express();
 
+app.use(helmet());
 
+//Hide Potentially Dangerouse Informtation using helmet.hidePoweredBy()
+app.use(helmet.hidePoweredBy());
+
+//Mitigaet the Risk of Clickjacking with helmet.frameguard()
+app.use(helmet.frameguard({action: 'deny'}));
+
+//Mitigate the Risk of Cross Site Scripting (XSS) Attacks with helmet.xssFilter()
+app.use(helmet.xssFilter());
+
+//Avoid Inferring the Response MIME Type with helmet.noSniff()
+app.use(helmet.noSniff());
+
+//Prevent IE from Opening Untrusted HTML with helmet.ieNoOpen()
+app.use(helmet.ieNoOpen());
+
+//Ask Browsers to Access Your Site via HTTPS Only with helmet.hsts()
+ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+app.use(helmet.hsts({maxAge: ninetyDaysInSeconds, force: true}));
 
 
 
